@@ -28,7 +28,13 @@ class EloquentFailedJobRepository
             ->when($request->filled('connection'), function (Builder $q) use ($request) {
                 return $q->where('connection', $request->get('connection'));
             })
-            ->paginate();
+            ->paginate(null, [
+                'id',
+                'failed_at',
+                'tags',
+                'connection',
+                'queue',
+            ]);
     }
 
     /**
