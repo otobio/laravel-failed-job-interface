@@ -1,0 +1,13 @@
+{
+  "name": "moldersmedia/laravel-failed-jobs-interface",
+  "description": "Provides a connection between your platform and the Lightspeed API",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MoldersMedia\\FailedJobInterface\\": "src/"
+    }
+  }
+}
