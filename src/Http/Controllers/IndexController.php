@@ -45,8 +45,6 @@ class IndexController extends Controller
 
         $data->payload = json_decode($data->payload);
 
-        $data->payload->data->command = unserialize($data->payload->data->command);
-
         return response()->json($data);
     }
 }
