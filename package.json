@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
-        "laravel-vue-pagination": "^1.2.0"
+        "laravel-vue-pagination": "^1.2.0",
+        "phpunserialize": "^1.0.1"
     }
 }
