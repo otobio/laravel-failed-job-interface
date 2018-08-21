@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 class FailedJobInterfaceServiceProvider extends ServiceProvider
 {
     /**
-     * 
+     *
      */
     public function register()
     {
@@ -18,16 +18,31 @@ class FailedJobInterfaceServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $this->loadViewsFrom(
-            __DIR__ . '/../resources/views/', 'fji'
-        );
-
-        $this->mergeConfigFrom(__DIR__ . '/config/failed_job_interface.php', 'failed_job_interface');
-
-        $this->setHorizonConfig();
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'fji');
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
 
+        $this->publishes([$this->getConfigFile() => $this->getConfigLocation()]);
+
+        $this->mergeConfigFrom($this->getConfigFile(), 'failed_job_interface');
+
+        $this->setHorizonConfig();
         $this->setRoutes($router);
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfigFile(): string
+    {
+        return __DIR__ . '/config/failed_job_interface.php';
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfigLocation(): string
+    {
+        return config_path('failed-job-interface.php');
     }
 
     /**
