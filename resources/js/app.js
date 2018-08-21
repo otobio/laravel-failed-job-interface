@@ -17,6 +17,8 @@ window.Bus = new Vue();
 
 Vue.component('payload-modal', require('./payload_modal.vue'));
 Vue.component('paginator', require('./paginator.vue'));
+Vue.component('fade-loader', require('vue-spinner/src/FadeLoader.vue'));
+
 
 const app = new Vue({
     el: '#app',
@@ -24,6 +26,7 @@ const app = new Vue({
         return {
             jobs: {},
             pagination: {},
+            loader: true,
             filters: {
                 connections: [],
                 tags: [],
@@ -37,19 +40,21 @@ const app = new Vue({
         }
     },
     watch: {
-        'selected_filters.tags': function(val, oldVal) {
+        'selected_filters.tags': function (val, oldVal) {
             this.loadFailedJobs();
         },
-        'selected_filters.queues': function(val, oldVal) {
+        'selected_filters.queues': function (val, oldVal) {
             this.loadFailedJobs();
         },
-        'selected_filters.connection': function(val, oldVal) {
+        'selected_filters.connection': function (val, oldVal) {
             this.loadFailedJobs();
         },
     },
     methods: {
         loadFailedJobs(page = 1) {
             let self = this;
+
+            self.loader = true;
             axios
                 .get(window.FJI.paths.get_jobs, {
                     params: {
@@ -62,6 +67,7 @@ const app = new Vue({
                 .then(response => {
                     self.jobs = response.data.data;
                     self.pagination = response.data;
+                    self.loader = false;
                 });
         },
         displayJob(jobId) {
@@ -97,6 +103,12 @@ const app = new Vue({
                     self.filters.queues = response.data.filters;
                 });
         },
+        refreshFilters(){
+            let self = this;
+            self.loadConnectionFilter();
+            self.loadQueueFilter();
+            self.loadTagFilter();
+        }
     },
     created() {
 

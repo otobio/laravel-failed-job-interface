@@ -3,12 +3,22 @@
 @section('content')
     <main role="main" class="">
 
-        <div class="col-lg-12">
+        <div class="loader" :class="loader ? 'active' : ''">
+            <div class="loader-container">
+                <fade-loader :loading="true"></fade-loader>
+            </div>
+
+        </div>
+        <div class="col-lg-12" v-cloak>
             <div class="card text-white bg-dark mb-3">
                 <div class="card-header">
                     Filters
                     <div class="pull-right filter-btn btn btn-outline-info">
-                        <i class="fa fa-filter"></i>
+                        <i class="fa fa-filter"></i> Toggle filters
+                    </div>
+
+                    <div class="pull-right refresh-btn btn btn-outline-success" @click="refreshFilters()">
+                        <i class="fa fa-refresh"></i> Refresh filters
                     </div>
                 </div>
                 <div class="card-body filter-body">
@@ -58,6 +68,7 @@
             </div>
 
             <paginator :data="pagination" :event="'loadJobs'"></paginator>
+
             <table class="table table-striped table-hover table-dark table-sm">
                 <thead>
                 <tr>

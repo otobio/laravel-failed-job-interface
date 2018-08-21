@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Failed Job Interface</title>
+    <title>{{config('app.name')}} | Failed Job Interface</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{route('fji.assets.css')}}" rel="stylesheet">
@@ -31,17 +31,49 @@
             margin-bottom: 10px;
         }
 
-        .filter-btn {
+        .filter-btn,.refresh-btn  {
             padding: 0 20px;
         }
 
+        .refresh-btn {
+            margin-right: 20px;
+            display: none;
+        }
         .filter-body {
             display: none;
         }
 
+        .open-filters .refresh-btn {
+            display: block;
+        }
         .open-filters .card-body {
             display: block;
         }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100000;
+            background: rgba(0,0,0,.3);
+            display: none;
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        .loader-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        [v-cloak] {display: none}
+
     </style>
 
     <script>
