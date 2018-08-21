@@ -42,7 +42,7 @@ class FailedJobInterfaceServiceProvider extends ServiceProvider
      */
     public function getConfigLocation(): string
     {
-        return config_path('failed-job-interface.php');
+        return config_path('failed_job_interface.php');
     }
 
     /**
