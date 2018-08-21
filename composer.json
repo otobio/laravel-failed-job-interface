@@ -9,5 +9,15 @@
     "psr-4": {
       "MoldersMedia\\FailedJobInterface\\": "src/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "MoldersMedia\\FailedJobInterface\\FailedJobInterfaceServiceProvider"
+      ]
+    }
+  },
+  "require-dev": {
+    "illuminate/framework": "5.5.x"
   }
 }
