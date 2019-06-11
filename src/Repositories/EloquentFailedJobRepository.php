@@ -2,19 +2,19 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\AbstractPaginator;
 use MoldersMedia\FailedJobInterface\Models\FailedJob;
 
 class EloquentFailedJobRepository
 {
     /**
      * @param Request $request
-     * @return LengthAwarePaginator
+     * @return AbstractPaginator
      */
-    public function getFailedJobs($request): LengthAwarePaginator
+    public function getFailedJobs($request): AbstractPaginator
     {
         /** @var Builder $q */
-        return (new FailedJob)
+        $query = (new FailedJob)
             ->when($request->input('tags', []), function (Builder $q) use ($request) {
                 foreach ($request->input('tags') as $tag) {
                     $q = $q->orWhereRaw('json_contains(tags, \'["' . $tag . '"]\')');
@@ -27,14 +27,21 @@ class EloquentFailedJobRepository
             })
             ->when($request->filled('connection'), function (Builder $q) use ($request) {
                 return $q->where('connection', $request->get('connection'));
-            })
-            ->paginate(null, [
-                'id',
-                'failed_at',
-                'tags',
-                'connection',
-                'queue',
-            ]);
+            });
+
+        $columns = [
+            'id',
+            'failed_at',
+            'tags',
+            'connection',
+            'queue',            
+        ];
+        
+        if (config('failed_job_interface.paginator_kind') === 'simple') {
+            return $query->simplePaginate(null, $columns);
+        } else {
+            return $query->paginate(null, $columns);
+        }
     }
 
     /**
@@ -70,7 +77,7 @@ class EloquentFailedJobRepository
 
         $tags = [];
         foreach ($data as $tagGroup) {
-            foreach ($tagGroup as $tag) {
+            foreach ((array)$tagGroup as $tag) {
                 $tags[] = $tag;
             }
         }

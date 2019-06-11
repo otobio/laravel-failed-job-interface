@@ -27,10 +27,10 @@
         },
         methods: {
             hasPreviousPage() {
-                return this.data.current_page > 1;
+                return this.data.prev_page_url;
             },
             hasNextPage() {
-                return this.data.current_page < this.data.last_page;
+                return this.data.next_page_url;
             },
             getActiveClass(page) {
                 return page === this.data.current_page ? 'active' : '';

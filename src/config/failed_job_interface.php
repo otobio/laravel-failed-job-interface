@@ -13,5 +13,8 @@
     'uses_horizon'    => null,
 
     # If you load the interface, do you want the filters collapsed?
-    'display_filters' => false
+    'display_filters' => false,
+
+    # default or simple    
+    'paginator_kind' => 'simple',
 ];
