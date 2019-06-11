@@ -18,6 +18,6 @@
     }
   },
   "require-dev": {
-    "illuminate/framework": "5.5.x"
+    "laravel/framework": "5.8.*"
   }
 }

@@ -28,7 +28,7 @@ class AssetController extends Controller
         $file = $this->fs->get(__DIR__ . '/../../../public/js/app.js');
 
         return response($file, 200, [
-            'Content-Type' => 'text/js'
+            'Content-Type' => 'application/javascript'
         ]);
     }
 
