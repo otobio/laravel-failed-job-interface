@@ -1,4 +1,6 @@
 <?php return [
+    # Specify the URL prefix for the interface
+    'prefix'    => 'admin',
 
     # Specify the URL for the interface
     'url'             => 'failed-job-interface',

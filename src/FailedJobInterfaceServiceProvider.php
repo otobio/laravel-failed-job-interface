@@ -64,7 +64,7 @@ class FailedJobInterfaceServiceProvider extends ServiceProvider
     {
         $router->group([
             'namespace'  => 'MoldersMedia\FailedJobInterface\Http\Controllers',
-            'prefix'     => config('failed_job_interface.url'),
+            'prefix'     => config('failed_job_interface.prefix'),
             'middleware' => config('failed_job_interface.middleware')
         ], function (Router $router) {
             $router->group(['prefix' => 'assets'], function (Router $router) {
@@ -78,7 +78,7 @@ class FailedJobInterfaceServiceProvider extends ServiceProvider
                 $router->get('get-queues', 'FilterController@getQueues')->name('fji.filters.queues');
             });
 
-            $router->get('/', 'IndexController@index');
+            $router->get(config('failed_job_interface.url'), 'IndexController@index');
             $router->get('get-jobs', 'IndexController@getJobs')->name('fji.get-jobs');
             $router->get('get-job', 'IndexController@getJob')->name('fji.get-job');
         });
