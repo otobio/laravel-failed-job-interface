@@ -67,16 +67,12 @@ class FailedJobInterfaceServiceProvider extends ServiceProvider
             'prefix'     => config('failed_job_interface.prefix'),
             'middleware' => config('failed_job_interface.middleware')
         ], function (Router $router) {
-            $router->group(['prefix' => 'assets'], function (Router $router) {
-                $router->get('css', 'AssetController@css')->name('fji.assets.css');
-                $router->get('js', 'AssetController@js')->name('fji.assets.js');
-            });
+            $router->get('css', 'AssetController@css')->name('fji.assets.css');
+            $router->get('js', 'AssetController@js')->name('fji.assets.js');
 
-            $router->group(['prefix' => 'filters'], function (Router $router) {
-                $router->get('get-connections', 'FilterController@getConnections')->name('fji.filters.connections');
-                $router->get('get-tags', 'FilterController@getTags')->name('fji.filters.tags');
-                $router->get('get-queues', 'FilterController@getQueues')->name('fji.filters.queues');
-            });
+            $router->get('get-connections', 'FilterController@getConnections')->name('fji.filters.connections');
+            $router->get('get-tags', 'FilterController@getTags')->name('fji.filters.tags');
+            $router->get('get-queues', 'FilterController@getQueues')->name('fji.filters.queues');
 
             $router->get(config('failed_job_interface.url'), 'IndexController@index');
             $router->get('get-jobs', 'IndexController@getJobs')->name('fji.get-jobs');
